@@ -10,9 +10,59 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_14_210034) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_15_163829) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "account_settings", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_account_settings_on_user_id"
+  end
+
+  create_table "passangers", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "passaport_number"
+    t.string "country"
+    t.string "email"
+    t.string "phone"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "passengers", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "passaport_number"
+    t.string "country"
+    t.string "email"
+    t.string "phone"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "reservations", force: :cascade do |t|
+    t.string "check_in"
+    t.string "check_out"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "room_id"
+    t.bigint "passenger_id"
+    t.index ["passenger_id"], name: "index_reservations_on_passenger_id"
+    t.index ["room_id"], name: "index_reservations_on_room_id"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.string "number"
+    t.integer "status"
+    t.string "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "account_setting_id"
+    t.index ["account_setting_id"], name: "index_rooms_on_account_setting_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -28,4 +78,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_210034) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "account_settings", "users"
+  add_foreign_key "reservations", "passengers"
+  add_foreign_key "reservations", "rooms"
+  add_foreign_key "rooms", "account_settings"
 end
