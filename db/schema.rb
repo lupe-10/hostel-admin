@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_15_163829) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_21_235302) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,6 +21,27 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_15_163829) do
     t.index ["user_id"], name: "index_account_settings_on_user_id"
   end
 
+  create_table "beds", force: :cascade do |t|
+    t.string "number"
+    t.integer "status"
+    t.integer "check_in"
+    t.integer "check_out"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "room_id"
+    t.index ["room_id"], name: "index_beds_on_room_id"
+  end
+
+  create_table "passangers", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "passaport_number"
+    t.string "country"
+    t.string "email"
+    t.string "phone"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "passengers", force: :cascade do |t|
     t.string "first_name"
@@ -69,6 +90,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_15_163829) do
   end
 
   add_foreign_key "account_settings", "users"
+  add_foreign_key "beds", "rooms"
   add_foreign_key "reservations", "passengers"
   add_foreign_key "reservations", "rooms"
   add_foreign_key "rooms", "account_settings"
