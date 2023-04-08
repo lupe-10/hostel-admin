@@ -1,0 +1,10 @@
+<div class= "container">
+<h1>Reserva</h1>
+  <% @reservations.each do |reservation| %>
+    <%= @reservation.check_in%>
+    <%= @reservation.check_out%>
+    <%= link_to 'Reserva', reservation_path(reservation) %>
+  <% end %>
+   <%= link_to 'home', root_path %>
+<h1>Pasajero</h1>
+</div>

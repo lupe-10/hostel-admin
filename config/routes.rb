@@ -14,4 +14,7 @@ Rails.application.routes.draw do
   # end
 
     resources :rooms, only: %i[index  show edit create ]
+    resources :reservations, only: %i[index  show edit create ]
+    resources :pasangers, only: %i[index  show edit create ]
+    resources :beds, only: %i[index  show edit create ]
 end

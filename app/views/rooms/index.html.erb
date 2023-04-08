@@ -1,0 +1,7 @@
+<div class= "container">
+  <% @rooms.each do |room| %>
+    <%= link_to 'habitación', room_path(room) %>
+  <% end %>
+   <%= link_to 'home', root_path %>
+<h1>Habitaciones</h1>
+</div>

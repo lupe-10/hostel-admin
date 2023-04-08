@@ -1,22 +1,23 @@
 class ReservationsController < ApplicationController
 
 
-  before_action: set_reservation, only: [:show, :edit]
+  # before_action: set_reservation, only: [:show, :edit]
 
   def index
-    @reservation = Reservation.all
+    @reservations = Reservation.all
   end
 
   def show
+    @reservation = Reservation.find(params[:id])
   end
 
   def create
     @reservation = Reservation.create(reservation_permit_params)
-    @reservation.save!
   end
 
   def edit
-    @reservation.update(set_reservation)
+    @reservation = Reservation.find(params[:id])
+    @reservation.update(reservation_permit_params)
     @reservation.save!
   end
 

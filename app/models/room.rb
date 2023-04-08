@@ -5,5 +5,5 @@ class Room < ApplicationRecord
     enum status: [ :reserved, :free, :check_in, :check_out, :paid, :occupied ]
 
     has_many :beds
-    has_many :reservations
+    has_many :pasanger
 end
